@@ -7,6 +7,7 @@ import threading
 import hashlib
 import requests
 from tqdm import tqdm
+from functools import lru_cache
 
 import comfy.utils
 import folder_paths
@@ -439,6 +440,7 @@ class CivitAI_Model:
     # CALCULATE SHA256
 
     @staticmethod
+    @lru_cache(maxsize=10)
     def calculate_sha256(file_path):
         sha256_hash = hashlib.sha256()
         if file_path and os.path.exists(file_path):
